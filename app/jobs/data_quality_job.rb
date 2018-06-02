@@ -5,7 +5,8 @@ class DataQualityJob
   end
 
   def perform
-    total_markets = Market.count
+    markets = Market.where(name: ENV["SUPPORTED_COINS"].split)
+    total_markets = markets.count
     stats = {
       total_markets: total_markets,
       total_expected_data_points: total_markets * EXPECTED_DATA_COUNT
@@ -13,7 +14,7 @@ class DataQualityJob
 
     market_data_points = {}
     total_data_points = 0
-    Market.all.each do |market|
+    markets.each do |market|
       available_data_count = market.market_prices.where("date(price_date) = ?", @date).count
       market_data_points[market.name] = (available_data_count.to_d / EXPECTED_DATA_COUNT) * 100
       total_data_points = total_data_points + available_data_count

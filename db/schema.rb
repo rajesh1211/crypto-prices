@@ -12,13 +12,16 @@
 
 ActiveRecord::Schema.define(version: 20180602124514) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "aggregated_market_prices", force: :cascade do |t|
     t.decimal "open"
     t.decimal "close"
     t.decimal "high"
     t.decimal "volume"
     t.datetime "price_date"
-    t.integer "market_id"
+    t.bigint "market_id"
     t.integer "interval_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -31,7 +34,7 @@ ActiveRecord::Schema.define(version: 20180602124514) do
     t.decimal "high"
     t.decimal "volume"
     t.datetime "price_date"
-    t.integer "market_id"
+    t.bigint "market_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["market_id"], name: "index_market_prices_on_market_id"
