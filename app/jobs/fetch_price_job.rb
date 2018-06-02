@@ -11,15 +11,18 @@ class FetchPriceJob
         latest_records = response["result"].select{|item| Date.parse(item["T"]) >= latest_date}
 
         latest_records.each do |res|
-          market.market_prices <<
-            MarketPrice.new(
-              market: market,
-              open: res["O"],
-              high: res["H"],
-              close: res["C"],
-              volume: res["V"],
-              price_date: res["T"]
-            )
+          puts res["T"]
+          unless market.market_prices.exists?(price_date: res["T"])
+            market.market_prices <<
+              MarketPrice.new(
+                market: market,
+                open: res["O"],
+                high: res["H"],
+                close: res["C"],
+                volume: res["V"],
+                price_date: res["T"]
+              )
+          end
         end
         market.save!
 
@@ -46,15 +49,17 @@ class FetchPriceJob
 
 
       time_bucket.each do | time, prices|
-        market.aggregated_market_prices << AggregatedMarketPrice.new(
-          market: market,
-          open: prices.first.open,
-          high: prices.max_by(&:high),
-          close: prices.first.close,
-          volume: prices.sum(&:volume),
-          price_date: time,
-          interval_type: interval
-        )
+        unless market.aggregated_market_prices.exists?(interval_type: interval, price_date: time)
+          market.aggregated_market_prices << AggregatedMarketPrice.new(
+            market: market,
+            open: prices.first.open,
+            high: prices.max_by(&:high),
+            close: prices.first.close,
+            volume: prices.sum(&:volume),
+            price_date: time,
+            interval_type: interval
+          )
+        end
       end
       market.save!
     end
