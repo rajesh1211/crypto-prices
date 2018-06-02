@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       resources :markets, only: [:index] do
         collection do
           get "prices/:market_name", action: "prices"
+          get :trigger_sanity_check
         end
       end
     end

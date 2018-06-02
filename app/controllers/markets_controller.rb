@@ -18,4 +18,9 @@ class MarketsController < ApplicationController
       render json: {message: "Please provide market name"}, status: 422
     end
   end
+
+  def trigger_sanity_check
+    DataQualityJob.new.perform
+    render :nothing
+  end
 end
