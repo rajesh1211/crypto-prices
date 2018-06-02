@@ -22,6 +22,6 @@ class MarketsController < ApplicationController
   # /api/v1/trigger_sanity_check
   def trigger_sanity_check
     DataQualityJob.new.perform
-    render :nothing
+    render json: {message: "Report has benn mailed to concerned person"}, status: :ok
   end
 end
