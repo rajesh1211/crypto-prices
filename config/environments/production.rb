@@ -95,7 +95,8 @@ Rails.application.configure do
     user_name:      ENV['SMTP_LOGIN'],
     password:       ENV['SMTP_PASSWORD'],
     domain:         ENV['SMTP_DOMAIN'],
-    authentication: :plain
+    authentication: :plain,
+    enable_starttls_auto: true
   }
   config.action_mailer.default_url_options = { host: ENV['SITE_ROOT'], protocol: :https}
   config.action_mailer.delivery_method = :smtp

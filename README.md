@@ -1,25 +1,21 @@
-# crypto-prices
-Provides crypto currency data from bittrex
+# Crypto Price Tracker
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Crypto tracker allow you to maintain the price data of of different specified crypto markets, Following are the features:
+  - Supported exchange: currently only bittrex is supported
+  - APIs to fetch crypto prices
+  - Maintians 1 min , 5 min, 15 min, 30 min, 60 min tick data
 
-Things you may want to cover:
+### Tech
+  - /api/v1/markets
+  - /api/v1/markets/prices/BTC-XPR
+  - /api/v1/markets/trigger_sanity_check
 
-* Ruby version
+### Installation
 
-* System dependencies
+clone the project and run, add required environment variables into .env file
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```sh
+$ bundle install
+$ rake db:create db:migrate db:seed
+$ rails s
+```
