@@ -17,10 +17,6 @@ pickle-email-*.html
 # Only include if you have production secrets in this file, which is no longer a Rails default
 # config/secrets.yml
 
-# dotenv
-# TODO Comment out this rule if environment variables can be committed
-.env
-
 ## Environment normalization:
 /.bundle
 /vendor/bundle
@@ -41,6 +37,5 @@ bower.json
 
 # Ignore Byebug command history file.
 .byebug_history
-
-# Ignore node_modules
-node_modules/
+.env
+.env.*
