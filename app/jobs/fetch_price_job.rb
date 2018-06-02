@@ -20,6 +20,7 @@ class FetchPriceJob
         # Guard condition if no data is available
         next if response["result"].nil? || response["result"].empty?
         latest_date = Date.parse(response["result"].last["T"])
+
         latest_records = response["result"].select{|item| Date.parse(item["T"]) >= latest_date}
 
         latest_records.each do |res|
@@ -49,16 +50,16 @@ class FetchPriceJob
     def save_aggregated_data(market)
       market_prices = market.market_prices
       last_record_available = market_prices.last.price_date
-
       AGGRGATED_TIME_INTERVALS.each do |interval|
-        last_time = last_record_available - interval.minutes
+        previous_last_time = last_record_available - interval.minutes
+        latest_time = last_record_available
         time_bucket = {}
-        while last_time.to_date > (last_record_available.to_date - 1) do
-          time_bucket[last_time] = market_prices.select{|price| price.price_date >= last_time}
-          last_time = last_time - interval.minutes
+
+        while previous_last_time.to_date > (last_record_available.to_date - 1) do
+          time_bucket[previous_last_time] = market_prices.select{|price| price.price_date >= previous_last_time && price.price_date < latest_time}
+          previous_last_time = previous_last_time - interval.minutes
+          latest_time = latest_time - interval.minutes
         end
-
-
         time_bucket.each do | time, prices|
           unless market.aggregated_market_prices.exists?(interval_type: interval, price_date: time)
             market.aggregated_market_prices << AggregatedMarketPrice.new(

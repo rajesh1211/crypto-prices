@@ -28,11 +28,6 @@ ActiveRecord::Schema.define(version: 20180602124514) do
     t.index ["market_id"], name: "index_aggregated_market_prices_on_market_id"
   end
 
-  create_table "banks", id: false, force: :cascade do |t|
-    t.string "name", limit: 49
-    t.bigint "id", null: false
-  end
-
   create_table "market_prices", force: :cascade do |t|
     t.decimal "open"
     t.decimal "close"
