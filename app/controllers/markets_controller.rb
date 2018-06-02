@@ -19,6 +19,7 @@ class MarketsController < ApplicationController
     end
   end
 
+  # /api/v1/trigger_sanity_check
   def trigger_sanity_check
     DataQualityJob.new.perform
     render :nothing
