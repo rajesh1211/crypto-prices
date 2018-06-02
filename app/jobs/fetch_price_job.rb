@@ -3,7 +3,7 @@ class FetchPriceJob
   AGGRGATED_TIME_INTERVALS = [5, 15, 30, 60]
   def perform
     begin
-      Market.first(2).each do |market|
+      Market.all.each do |market|
         response = BittrexService.fetch_market_prices!(marketName: market.name, tickInterval: DEFAULT_TICK_INTERVAL)
         next if response["result"].nil? || response["result"].empty?
         latest_date = Date.parse(response["result"].last["T"])

@@ -38,6 +38,8 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    addressable (2.5.2)
+      public_suffix (>= 2.0.2, < 4.0)
     arel (8.0.0)
     bindex (0.5.0)
     builder (3.2.3)
@@ -67,6 +69,10 @@ GEM
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
+    launchy (2.4.3)
+      addressable (~> 2.3)
+    letter_opener (1.6.0)
+      launchy (~> 2.2)
     listen (3.1.1)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9.7)
@@ -85,6 +91,7 @@ GEM
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     pg (0.20.0)
+    public_suffix (3.0.2)
     puma (3.11.4)
     rack (2.0.5)
     rack-test (1.0.0)
@@ -168,6 +175,7 @@ DEPENDENCIES
   dotenv-rails
   httparty
   jbuilder (~> 2.5)
+  letter_opener
   listen (>= 3.0.5, < 3.2)
   pg (= 0.20)
   puma (~> 3.7)

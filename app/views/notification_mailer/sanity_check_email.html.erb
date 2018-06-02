@@ -1,0 +1,33 @@
+Hello Team,
+
+Here is the sanity check report
+
+<h3> Number of markets : <%=@stats[:total_markets]%></h3>
+<h3> Total Number of expected markets : <%=@stats[:total_expected_data_points]%></h3>
+
+<h3> Percentage of total datapoints available : <%=@stats[:total_percentage_of_data_points].round(2)%></h3>
+
+<h3> Marketwise datapoints :</h3>
+
+<table border="1">
+  <thead>
+    <th>
+      Market Name
+    </th>
+    <th>
+      Percentage of datapoints available
+    </th>
+  </thead>
+  <tbody>
+    <%@stats[:market_data_points].each do |market_name, percentage| %>
+      <tr>
+        <td>
+          <%=market_name%>
+        </td>
+        <td>
+          <%=percentage.round(2)%>
+        </td>
+      </tr>
+    <%end%>
+  </tbody>
+</table>
